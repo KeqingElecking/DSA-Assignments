@@ -39,15 +39,13 @@ void NhapDS(Danhsach *ds, int total)
 {
     ds->first = ds->last = NULL;
     int i = 0;
-    Thongtin *flag = NULL;
     while(i < total){
         Thongtin* p = new Thongtin;
         NhapSV(p->data);
-        p->next = ds->last;
+        p->next = ds->first;
+        ds->first = p;
         i++;
-        flag = p; 
     }
-    ds->first = flag;
 }
 bool sosanh(char sv1[], char sv2[])
 {
@@ -66,7 +64,9 @@ bool sosanh(char sv1[], char sv2[])
 }
 void sort(Danhsach *sv, int total)
 {
-    
+    Thongtin* i = sv->first;
+    Thongtin* j = sv->last;
+
 }
 int main()
 {
