@@ -23,6 +23,7 @@ struct Danhsach{
     Thongtin *last;
 };
 void NhapSV(SinhVien x){
+    fflush(stdin);
     gets(x.maSV);
     fflush(stdin);
     gets(x.hoten);
@@ -47,16 +48,29 @@ void NhapDS(Danhsach *ds, int total)
         i++;
     }
 }
+void Delete(Danhsach *ds, int place)
+{
+    Thongtin* p = ds->first;
+    for (int i = 0; i < place - 1; ++i)
+    {
+        p = p->next;
+    }
+    Thongtin* del = p->next;
+    Thongtin* apd = del->next;
+    p->next = apd;
+    delete del;
+}
 bool sosanh(char sv1[], char sv2[])
 {
-    if(sizeof(sv1)>sizeof(sv2)) return true;
-    else if (sizeof(sv1)<sizeof(sv2)) return false;
+    if (sv2 = 0) return false;
+    if(sizeof(sv1)<sizeof(sv2)) return true;
+    else if (sizeof(sv1)>sizeof(sv2)) return false;
     else
     {
         int i = 0;
         while (i < sizeof(sv1) - 1)
         {
-            if(sv1[i] > sv2[i]) return true;
+            if(sv1[i] < sv2[i]) return true;
             else if (sv1[i] > sv2[i]) return false;
         }
         return true;
@@ -64,16 +78,51 @@ bool sosanh(char sv1[], char sv2[])
 }
 void sort(Danhsach *sv, int total)
 {
-    Thongtin* i = sv->first;
-    Thongtin* j = sv->last;
-
+    Thongtin* p = 0;
+    while (sv->first != 0)
+    {
+        Thongtin* i = sv->first;
+        Thongtin** max = &sv->first;
+        while(i != 0)
+        {
+            if (sosanh(i->data.hoten, (*max)->data.hoten)) max = &i->next;
+            i = i->next;
+        }
+        Thongtin* del = *max;
+        *max = del->next;
+        del->next = p;
+        p = del;
+    }
+}
+void append(Danhsach* sv, SinhVien &x)
+{
+    Thongtin* p = new Thongtin;
+    p->data = x;
+    p->next = 0;
+    if (sv->first == nullptr || sosanh(x.hoten, sv->first->data.hoten) < 0)
+    {
+        p->next = sv->first;
+        sv->first = p;
+        return;
+    }
+    Thongtin* ptr = sv->first;
+    while (ptr->next != nullptr && sosanh(ptr->next->data.hoten, x.hoten) < 0)
+    {
+        ptr = ptr->next;
+    }
+    p->next = ptr->next;
+    ptr->next = p;
 }
 int main()
 {
     int total;
     scanf("%d", &total);
-    Danhsach* sv;
-    sv = NULL;
-    NhapDS(sv, total);
-
+    Danhsach sv;
+    Danhsach* psv = &sv;
+    NhapDS(psv, total);
+    psv = &sv;
+    sort(&sv, total);
+    SinhVien x;
+    NhapSV(x);
+    append(psv, x);
 }

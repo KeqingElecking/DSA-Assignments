@@ -50,12 +50,13 @@ int main()
     list *init = &ls;
     init->first = init->last = 0;
     list *init2 = &ls2;
+    init2->first = init2->last = 0;
     int bac;
     cin >> bac;
     dathuc(init, bac);
     int bac2;
     cin >> bac2;
-    dathuc(init2, bac);
+    dathuc(init2, bac2);
     cout << sum(init) + sum(init2);
     system("pause");
 }
