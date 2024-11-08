@@ -28,7 +28,8 @@ void NhapSV(SinhVien x){
     fflush(stdin);
     gets(x.hoten);
     fflush(stdin);
-    scanf("%d%d%d%d", x.Gioitinh, x.ngaysinh.ngay, x.ngaysinh.thang, x.ngaysinh.nam);
+    scanf("%d%d%d%d", &x.Gioitinh, &x.ngaysinh.ngay, &x.ngaysinh.thang, &x.ngaysinh.nam);
+    fflush(stdin);
     gets(x.diachi);
     fflush(stdin);
     gets(x.lop);
@@ -43,9 +44,14 @@ void NhapDS(Danhsach *ds, int total)
     while(i < total){
         Thongtin* p = new Thongtin;
         NhapSV(p->data);
-        p->next = ds->first;
-        ds->first = p;
-        i++;
+        if (ds->first = 0) ds->first = ds->last = p;
+        else
+        {
+            p->next = ds->first;
+            ds->first = p;
+            i++;
+        }
+
     }
 }
 void Delete(Danhsach *ds, int place)
@@ -113,6 +119,10 @@ void append(Danhsach* sv, SinhVien &x)
     p->next = ptr->next;
     ptr->next = p;
 }
+void Samedob(Danhsach* sv, int total)
+{
+    
+}
 int main()
 {
     int total;
@@ -125,4 +135,5 @@ int main()
     SinhVien x;
     NhapSV(x);
     append(psv, x);
+    
 }
