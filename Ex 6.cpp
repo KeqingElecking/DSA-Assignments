@@ -72,6 +72,10 @@ void init(folder *fld, const char *directory_path)
 
     FindClose(hFind);
 }
+
+void insert(folder *fld, const char *directory_path){
+    
+}
 int main() {
     const char *directory_path = "D:\\Local Disk\\C++\\DSA Assignments";
     folder fld;
