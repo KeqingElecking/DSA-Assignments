@@ -16,15 +16,15 @@ void initialize(sentence* sen)
     char buff;
     while (1)
     {
-        std::cin >> std::noskipws >> buff;  // Read the character, not skipping whitespace
+        std::cin >> std::noskipws >> buff;
         if (buff == '\n') {
-            break;  // Stop loop if Enter key is detected
+            break;
         }
         std::cin.putback(buff); 
 
         word* p = new word;
         scanf("%s", &p->wrd);
-        p->next = 0;
+        // p->next = 0;
         if (sen->first == 0) sen->first = sen->last = p;
         else
         {
@@ -32,6 +32,7 @@ void initialize(sentence* sen)
             sen->last = p;
         }
     }
+    sen->last->next = 0;
 }
 
 void most_used(sentence* sen, int &total, int &maxi)
@@ -66,7 +67,7 @@ void most_used(sentence* sen, int &total, int &maxi)
 
 void elimination(sentence* sen)
 {
-
+    
 }
 
 int main(){

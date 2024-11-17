@@ -7,6 +7,7 @@ struct file_node {
     FILE *file;
     char filename[MAX_PATH];
     SYSTEMTIME creation_time;
+    int bytes;
     file_node* next;
 };
 
